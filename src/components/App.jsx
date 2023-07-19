@@ -1,6 +1,10 @@
 import { Routes, Route } from 'react-router-dom';
-import { lazy } from 'react';
+import { lazy, useEffect } from 'react';
 import { Layout } from './Layout';
+import { refreshUser } from 'redux/auth/operations';
+import { useDispatch } from 'react-redux';
+import { useAuth } from 'useAuth';
+
 // import css from './App.module.css';
 
 const Home = lazy(() => import('../pages/Home/Home'));
@@ -9,7 +13,16 @@ const Login = lazy(() => import('../pages/Login/Login'));
 const Register = lazy(() => import('../pages/Register/Register'));
 
 export const App = () => {
-  return (
+  const dispatch = useDispatch();
+  const { isRefreshing } = useAuth();
+
+  useEffect(() => {
+    dispatch(refreshUser());
+  }, [dispatch]);
+
+  return isRefreshing ? (
+    <b>Refreshing user...</b>
+  ) : (
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
