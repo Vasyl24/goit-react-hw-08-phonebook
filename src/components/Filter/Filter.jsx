@@ -2,8 +2,8 @@ import css from './Filter.module.css';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux/es/hooks/useSelector';
-import { getFilter } from '../../redux/selectors';
-import { filterContact } from 'redux/filterSlice';
+import { getFilter } from '../../redux/contacts/selectors';
+import { filterContact } from 'redux/contacts/filterSlice';
 
 export function Filter() {
   const filter = useSelector(getFilter);
@@ -20,7 +20,7 @@ export function Filter() {
         name="filter"
         value={filter}
         onChange={handleFilter}
-        pattern="/^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$/v"
+        pattern="\\+?\\d{1,4}?[ .\\-\\s\]?\\(?\\d{1,3}?\\)?[ .\\-\\s\]?\\d{1,4}[ .\\-\\s\]?\\d{1,4}[ .\\-\\s\]?\\d{1,9}"
       />
     </label>
   );
